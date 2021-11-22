@@ -1,0 +1,34 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    # argocd.argoproj.io/sync-wave: "30"
+  name: scc-job-du-mysore-server-profile-du-supermicro00
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+        - image: vran-quay-registry-quay-openshift-operators.apps.mgmtcluster.rtp.raleigh.ibm.com/ocp4/openshift4:4.6.16-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/mcp
+              echo ""
+              echo -n "Apply permissions for service account"
+              oc adm policy  add-scc-to-user privileged system:serviceaccount:$NAMESPACE:$SA
+              echo "DONE"
+          imagePullPolicy: Always
+          name: scc-apply-job
+          env:
+          - name: SA 
+            value: dp-sa-r
+          - name: NAMESPACE
+            value: altiostar-4g-du-mysore 
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

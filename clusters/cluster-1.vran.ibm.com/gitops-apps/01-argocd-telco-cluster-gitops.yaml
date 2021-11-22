@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-1.vran.ibm.com-gitops
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+#    namespace: test-sno-siteconfig
+  project: default
+  source:
+    path: clusters/cluster-1.vran.ibm.com/ztp/gitops
+    repoURL: https://github.ibm.com/ocp48automation/telco-gitops.git
+    targetRevision: develop
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

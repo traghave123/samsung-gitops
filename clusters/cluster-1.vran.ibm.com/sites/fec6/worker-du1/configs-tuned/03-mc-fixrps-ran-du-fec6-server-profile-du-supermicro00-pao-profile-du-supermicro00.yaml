@@ -1,0 +1,80 @@
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: ran-du-fec6-server-profile-du-supermicro00
+  name: ran-du-fec6-server-profile-du-supermicro00-fixrps-netqueues
+spec:
+  config:
+    ignition:
+      version: 3.1.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,IyEvdXNyL2Jpbi9lbnYgYmFzaAoKbWFzaz0iJHsxfSIKWyAtbiAiJHttYXNrfSIgXSB8fCB7IGxvZ2dlciAiJHswfTogVGhlIHJwcy1tYXNrIHBhcmFtZXRlciBpcyBtaXNzaW5nIiA7IGV4aXQgMDsgfQoKcGlkPSQoanEgJy5waWQnIC9kZXYvc3RkaW4gMj4mMSkKW1sgJD8gLWVxIDAgJiYgLW4gIiR7cGlkfSIgXV0gfHwgeyBsb2dnZXIgIiR7MH06IEZhaWxlZCB0byBleHRyYWN0IHRoZSBwaWQ6ICR7cGlkfSI7IGV4aXQgMDsgfQoKbnM9JChpcCBuZXRucyBpZGVudGlmeSAiJHtwaWR9IiAyPiYxKQpbWyAkPyAtZXEgMCAmJiAtbiAiJHtuc30iIF1dIHx8IHsgbG9nZ2VyICIkezB9IEZhaWxlZCB0byBpZGVudGlmeSB0aGUgbmFtZXNwYWNlOiAke25zfSI7IGV4aXQgMDsgfQoKbW9kZT0kKGlwIG5ldG5zIGV4ZWMgIiR7bnN9IiBbIC13IC9zeXMgXSAmJiBlY2hvICJydyIgfHwgZWNobyAicm8iIDI+JjEpClsgJD8gLWVxIDAgXSB8fCB7IGxvZ2dlciAiJHswfSBGYWlsZWQgdG8gZGV0ZXJtaW5lIGlmIHRoZSAvc3lzIGlzIHdyaXRhYmxlOiAke21vZGV9IjsgZXhpdCAwOyB9CgppZiBbICIke21vZGV9IiA9ICJybyIgXTsgdGhlbgogICAgcmVzPSQoaXAgbmV0bnMgZXhlYyAiJHtuc30iIG1vdW50IC1vIHJlbW91bnQscncgL3N5cyAyPiYxKQogICAgWyAkPyAtZXEgMCBdIHx8IHsgbG9nZ2VyICIkezB9OiBGYWlsZWQgdG8gcmVtb3VudCAvc3lzIGFzIHJ3OiAke3Jlc30iOyBleGl0IDA7IH0KZmkKCiMgL3N5cy9jbGFzcy9uZXQgY2FuJ3QgYmUgdXNlZCByZWN1cnNpdmVseSB0byBmaW5kIHRoZSBycHNfY3B1cyBmaWxlLCB1c2UgL3N5cy9kZXZpY2VzIGluc3RlYWQKcmVzPSQoaXAgbmV0bnMgZXhlYyAiJHtuc30iIGZpbmQgL3N5cy9kZXZpY2VzIC10eXBlIGYgLW5hbWUgcnBzX2NwdXMgLWV4ZWMgc2ggLWMgImVjaG8gJHttYXNrfSB8IGNhdCA+IHt9IiBcOyAyPiYxKQpbWyAkPyAtZXEgMCAmJiAteiAiJHtyZXN9IiBdXSB8fCBsb2dnZXIgIiR7MH06IEZhaWxlZCB0byBhcHBseSB0aGUgUlBTIG1hc2s6ICR7cmVzfSIKCmlmIFsgIiR7bW9kZX0iID0gInJvIiBdOyB0aGVuCiAgICBpcCBuZXRucyBleGVjICIke25zfSIgbW91bnQgLW8gcmVtb3VudCxybyAvc3lzCiAgICBbICQ/IC1lcSAwIF0gfHwgZXhpdCAxICMgRXJyb3Igb3V0IHNvIHRoZSBwb2Qgd2lsbCBub3Qgc3RhcnQgd2l0aCBhIHdyaXRhYmxlIC9zeXMKZmkK
+          verification: {}
+        filesystem: root
+        mode: 448
+        path: /usr/local/bin/low-latency-hooks.sh
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,IyEvdXNyL2Jpbi9lbnYgYmFzaAppZiBbIC1uICIkMyIgXSAmJiBbICIkMyIgPT0gImNyZWF0ZSIgXSAmJiBbIC1mICIkNS9jb25maWcuanNvbiIgXTsgdGhlbgogICAgICAgIGNvbmY9IiQ1L2NvbmZpZy5qc29uIgogICAgICAgIGNwdXM9JChqcSAtciAnLmxpbnV4LnJlc291cmNlcy5jcHUuY3B1cyAvLyBlbXB0eScgJGNvbmYpCiAgICAgICAgaWYgWyAtbiAkY3B1cyBdOyB0aGVuCiAgICAgICAgICAgIHRtcD0kKG1rdGVtcCkKICAgICAgICAgICAganEgJy5saW51eC5yZXNvdXJjZXMuY3B1LmNwdXMgPSAiMC0yLDI0LTI2IicgJGNvbmYgPiAiJHRtcCIKICAgICAgICAgICAgbXYgIiR0bXAiICRjb25mCiAgICAgICAgZmkKZmkKCi9iaW4vcnVuYyAiJEAiCg==
+          verification: {}
+        filesystem: root
+        mode: 448
+        path: /usr/local/bin/runc-wrapper.sh
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,IyBXZSBzaG91bGQgY29weSBwYXN0ZSB0aGUgZGVmYXVsdCBydW50aW1lIGJlY2F1c2UgdGhpcyBzbmlwcGV0IHdpbGwgb3ZlcnJpZGUgdGhlIHdob2xlIHJ1bnRpbWVzIHNlY3Rpb24KW2NyaW8ucnVudGltZS5ydW50aW1lcy5ydW5jXQpydW50aW1lX3BhdGggPSAiL3Vzci9sb2NhbC9iaW4vcnVuYy13cmFwcGVyLnNoIgpydW50aW1lX3R5cGUgPSAib2NpIgpydW50aW1lX3Jvb3QgPSAiL3J1bi9ydW5jIgoKIyBUaGUgQ1JJLU8gd2lsbCBjaGVjayB0aGUgcnVudGltZSBoYW5kbGVyIG5hbWUgdW5kZXIgdGhlIGNvZGUgYW5kIHdpbGwgYWN0aXZhdGUgaGlnaC1wZXJmb3JtYW5jZSBmZWF0dXJlcywKIyBsaWtlIENQVSBsb2FkIGJhbGFuY2luZy4KIyBXZSBzaG91bGQgcHJvdmlkZSB0aGUgcnVudGltZV9wYXRoIGJlY2F1c2Ugd2UgbmVlZCB0byBpbmZvcm0gdGhhdCB3ZSB3YW50IHRvIHJlLXVzZSBydW5jIGJpbmFyeSBhbmQgd2UKIyBkbyBub3QgaGF2ZSBoaWdoLXBlcmZvcm1hbmNlIGJpbmFyeSB1bmRlciB0aGUgJFBBVEggdGhhdCB3aWxsIHBvaW50IHRvIGl0LgpbY3Jpby5ydW50aW1lLnJ1bnRpbWVzLmhpZ2gtcGVyZm9ybWFuY2VdCnJ1bnRpbWVfcGF0aCA9ICIvdXNyL2xvY2FsL2Jpbi9ydW5jLXdyYXBwZXIuc2giCnJ1bnRpbWVfdHlwZSA9ICJvY2kiCnJ1bnRpbWVfcm9vdCA9ICIvcnVuL3J1bmMiCg==
+          verification: {}
+        filesystem: root
+        mode: 448
+        path: /etc/crio/crio.conf.d/99-runtimes.conf
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,IyEvdXNyL2Jpbi9lbnYgYmFzaAoKZGV2PSQxClsgLW4gIiR7ZGV2fSIgXSB8fCB7IGVjaG8gIlRoZSBkZXZpY2UgYXJndW1lbnQgaXMgbWlzc2luZyIgPiYyIDsgZXhpdCAxOyB9CgptYXNrPSQyClsgLW4gIiR7bWFza30iIF0gfHwgeyBlY2hvICJUaGUgbWFzayBhcmd1bWVudCBpcyBtaXNzaW5nIiA+JjIgOyBleGl0IDE7IH0KCmRldl9kaXI9Ii9zeXMvY2xhc3MvbmV0LyR7ZGV2fSIKCmZ1bmN0aW9uIGZpbmRfZGV2X2RpciB7CiAgc3lzdGVtZF9kZXZzPSQoc3lzdGVtY3RsIGxpc3QtdW5pdHMgLXQgZGV2aWNlIHwgZ3JlcCBzeXMtc3Vic3lzdGVtLW5ldC1kZXZpY2VzIHwgY3V0IC1kJyAnIC1mMSkKCiAgZm9yIHN5c3RlbWRfZGV2IGluICR7c3lzdGVtZF9kZXZzfTsgZG8KICAgIGRldl9zeXNmcz0kKHN5c3RlbWN0bCBzaG93ICIke3N5c3RlbWRfZGV2fSIgLXAgU3lzRlNQYXRoIC0tdmFsdWUpCgogICAgZGV2X29yaWdfbmFtZT0iJHtkZXZfc3lzZnMjIyovfSIKICAgIGlmIFsgIiR7ZGV2X29yaWdfbmFtZX0iID0gIiR7ZGV2fSIgXTsgdGhlbgogICAgICBkZXZfbmFtZT0iJHtzeXN0ZW1kX2RldiMjKi19IgogICAgICBkZXZfbmFtZT0iJHtkZXZfbmFtZSUlLmRldmljZX0iCiAgICAgIGlmIFsgIiR7ZGV2X25hbWV9IiA9ICIke2Rldn0iIF07IHRoZW4gIyBkaXNyZWdhcmQgdGhlIG9yaWdpbmFsIGRldmljZSB1bml0CiAgICAgICAgICAgICAgY29udGludWUKICAgICAgZmkKCiAgICAgIGVjaG8gIiR7ZGV2fSBkZXZpY2Ugd2FzIHJlbmFtZWQgdG8gJGRldl9uYW1lIgogICAgICBkZXZfZGlyPSIvc3lzL2NsYXNzL25ldC8ke2Rldl9uYW1lfSIKICAgICAgYnJlYWsKICAgIGZpCiAgZG9uZQp9CgpbIC1kICIke2Rldl9kaXJ9Ii9xdWV1ZXMgXSB8fCBmaW5kX2Rldl9kaXIgICAgICAgICAgICAgICAgIyB0aGUgbmV0IGRldmljZSB3YXMgcmVuYW1lZCwgZmluZCB0aGUgbmV3IG5hbWUKWyAtZCAiJHtkZXZfZGlyfSIvcXVldWVzIF0gfHwgeyBzbGVlcCA1OyBmaW5kX2Rldl9kaXI7IH0gICMgc2VhcmNoIGZhaWxlZCwgd2FpdCBhIGxpdHRsZSBhbmQgdHJ5IGFnYWluClsgLWQgIiR7ZGV2X2Rpcn0iL3F1ZXVlcyBdIHx8IHsgZWNobyAiJHtkZXZfZGlyfSIvcXVldWVzIGRpcmVjdG9yeSBub3QgZm91bmQgPiYyIDsgZXhpdCAwOyB9ICMgdGhlIGludGVyZmFjZSBkaXNhcHBlYXJlZCwgbm90IGFuIGVycm9yCgpmaW5kICIke2Rldl9kaXJ9Ii9xdWV1ZXMgLXR5cGUgZiAtbmFtZSBycHNfY3B1cyAtZXhlYyBzaCAtYyAiZWNobyAke21hc2t9IHwgY2F0ID4ge30iIFw7Cg==
+          verification: {}
+        filesystem: root
+        mode: 448
+        path: /usr/local/bin/set-rps-mask.sh
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,ewogICJ2ZXJzaW9uIjogIjEuMC4wIiwKICAiaG9vayI6IHsKICAgICJwYXRoIjogIi91c3IvbG9jYWwvYmluL2xvdy1sYXRlbmN5LWhvb2tzLnNoIiwKICAgICJhcmdzIjogWyJsb3ctbGF0ZW5jeS1ob29rcy5zaCIsICIwNzAwMDAwNyJdCiAgfSwKICAid2hlbiI6IHsKICAgICJhbHdheXMiOiB0cnVlCiAgfSwKICAic3RhZ2VzIjogWyJwcmVzdGFydCJdCn0K
+           
+          verification: {}
+        filesystem: root
+        mode: 420
+        path: /etc/containers/oci/hooks.d/99-low-latency-hooks.json
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,U1VCU1lTVEVNPT0ibmV0IiwgQUNUSU9OPT0iYWRkIiwgVEFHKz0ic3lzdGVtZCIsIEVOVntTWVNURU1EX1dBTlRTfT0idXBkYXRlLXJwc0Alay5zZXJ2aWNlIgo=
+          verification: {}
+        filesystem: root
+        mode: 420
+        path: /etc/udev/rules.d/99-netdev-rps.rules
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,IyEvYmluL2Jhc2gKIyEvYmluL2Jhc2gKcXVldWVfY250PTQgIyAyeCByZXNlcnZlZCBjb3JlcyAoZm9yIFJYL1RYIHF1ZXVlcykKCmlmIFsgISAtZiAvdXNyL2xvY2FsL2Jpbi9ldGh0b29sIF07IHRoZW4KICAgICMgZmluZCBldGh0b29sIGluIGxvY2FsIGNvbnRhaW5lcnMgKGUuZy4gdHVuZWQgY29udGFpbmVyKQogICAgZmluZF9ldGh0b29sPSQoZmluZCAvdmFyL2xpYi9jb250YWluZXJzL3N0b3JhZ2Uvb3ZlcmxheSAtbmFtZSAiZXRodG9vbCIgfCBoZWFkIC0xKQogICAgY3AgJGZpbmRfZXRodG9vbCAvdXNyL2xvY2FsL2Jpbi9ldGh0b29sCmZpCgpmb3IgbiBpbiAvc3lzL2NsYXNzL25ldC8qOwpkbwogICAgICAgIHN5c3B0aD0kKHJlYWxwYXRoICRuIHwgZ3JlcCAtdiAnL3N5cy9kZXZpY2VzL3ZpcnR1YWwnKQogICAgICAgIGlmIFsgeCRzeXNwdGggPT0gIngiIF07IHRoZW4gY29udGludWU7IGZpCgogICAgICAgIGlmYWNlPSQoYmFzZW5hbWUgJHN5c3B0aCkKICAgICAgICBlY2hvICJDb25maWd1cmluZyAkaWZhY2UgdG8gaGF2ZSAkcXVldWVfY250IHF1ZXVlcyIKICAgICAgICAvdXNyL2xvY2FsL2Jpbi9ldGh0b29sIC1MICRpZmFjZSBjb21iaW5lZCAkcXVldWVfY250CmRvbmUK
+          verification: {}
+        filesystem: root
+        mode: 448
+        path: /usr/local/bin/fix-net-queues.sh
+    systemd:
+      units:
+      - contents: |
+          [Unit]
+          Description=Sets network devices RPS mask
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/local/bin/set-rps-mask.sh %i 07000007
+        name: update-rps@.service
+      - name: fix-net-queues.service
+        enabled: true
+        contents: |
+          [Unit]
+          Description=Limit the net queues to 2 per housekeeping cpu
+          Before=kubelet.service
+          After=network.service
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/local/bin/fix-net-queues.sh
+
+          [Install]
+          WantedBy=multi-user.target

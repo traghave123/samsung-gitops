@@ -1,0 +1,24 @@
+# sno-2-bmh-secret & assisted-deployment-pull-secret need to be created under same namespace sno-2
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: clusters-sub
+    labels:
+       argocd.argoproj.io/managed-by: cluster-1-gitops       
+--- 
+
+## expected this should be created in first app only 01-argocd-telco-cluster-gitops.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cluster-1-gitops
+  labels:
+    argocd.argoproj.io/managed-by: cluster-1-gitops         
+    
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: policies-sub 
+    labels: 
+      argocd.argoproj.io/managed-by: cluster-1-gitops        

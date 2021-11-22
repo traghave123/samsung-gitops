@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+ name: cluster-1.vran.ibm.com-configs
+ namespace: openshift-gitops
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
+        revision: HEAD
+        files:
+        - path: "clusters/cluster-1.vran.ibm.com/sites/*/*/deploy-*/config.json"
+  template:
+    metadata:
+      name: '{{application-name}}'
+      namespace: openshift-gitops
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc

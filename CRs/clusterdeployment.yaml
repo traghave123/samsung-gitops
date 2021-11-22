@@ -1,0 +1,23 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterDeployment
+metadata:
+  name: sno-cluster-1
+  namespace: open-cluster-management
+spec:
+  baseDomain: vran.ibm.com
+  clusterName: vran-spoke-1
+  controlPlaneConfig:
+    servingCertificates: {}
+  installed: false
+  clusterInstallRef:
+    group: extensions.hive.openshift.io
+    kind: AgentClusterInstall
+    name: sno-cluster-1
+    version: v1beta1
+  platform:
+    agentBareMetal:
+      agentSelector:
+        matchLabels:
+          cluster-name: vran-spoke-1
+  pullSecretRef:
+    name: assisted-deployment-pull-secret

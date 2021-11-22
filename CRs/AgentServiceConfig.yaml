@@ -1,0 +1,36 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: AgentServiceConfig
+metadata:
+  name: agent
+  namespace: open-cluster-management
+  ### This is the annotation that injects modifications in the Assisted Service pod
+  #annotations:
+  #  unsupported.agent-install.openshift.io/assisted-service-configmap: "assisted-service-config"
+###
+spec:
+  databaseStorage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
+  filesystemStorage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
+  ### This is a ConfigMap that only will make sense on Disconnected environments
+  #mirrorRegistryRef:
+  #  name: "lab-index-mirror"
+  ###
+  osImages:
+    - openshiftVersion: "4.8"
+      version: "48.84.202109241901-0"
+      #url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-4.9.0-x86_64-live.x86_64.iso"
+      #rootFSUrl: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/4.9.0/rhcos-4.9.0-x86_64-live-rootfs.x86_64.img"
+      #url: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.8/4.8.14/rhcos-4.8.14-x86_64-live.x86_64.iso"
+      #rootFSUrl: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.8/4.8.14/rhcos-4.8.14-x86_64-live-rootfs.x86_64.img"
+      url: "http://9.37.131.200/4.8.14/rhcos-4.8.14-x86_64-live.x86_64.iso"
+      rootFSUrl: "http://9.37.131.200/4.8.14/rhcos-4.8.14-x86_64-live-rootfs.x86_64.img"
+      cpuArchitecture: "x86_64"

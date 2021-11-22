@@ -1,0 +1,34 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: NMStateConfig
+metadata:
+  name: nmstate-vran-spoke-1
+  labels:
+    cluster-name: vran-spoke-1
+    sno-cluster-vran-spoke-1: vran-spoke-1
+spec:
+  config:
+    interfaces:
+      - name: eth0
+        type: ethernet
+        state: up
+        mac-address: 40:A6:B7:5E:AD:50
+        ipv4:
+          enabled: true
+          address:
+          - ip: 9.37.245.73
+            prefix-length: 26
+          enabled: true
+          dhcp: false
+    dns-resolver:
+      config:
+        server:
+         - 9.42.106.2
+    routes:
+      config:
+        - destination: 0.0.0.0/0
+          next-hop-address: 9.37.245.65
+          next-hop-interface: eth0
+          table-id: 254
+  interfaces:
+    - name: "eth0" 
+      macAddress: 40:A6:B7:5E:AD:50

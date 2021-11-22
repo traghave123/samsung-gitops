@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: altiostar-4g-du-mysore
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dp-sa-r
+  namespace: altiostar-4g-du-mysore

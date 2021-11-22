@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+commonLabels:
+  # Each SITE_ID is a different zone
+  topology.kubernetes.io/zone: ran-du-fec6-server-profile-du-supermicro00
+  
+commonAnnotations:  
+  argocd.argoproj.io/sync-options: Prune=false
+  argocd.argoproj.io/compare-options: IgnoreExtraneous  
+
+resources:
+  - 00-hook-mcp-wait-job-fec6.yaml
+  - 01-disable-chronyd-ran-du-fec6-server-profile-du-supermicro00.yaml
+  
+  - 02-tuned-ran-du-fec6-server-profile-du-supermicro00.yaml
+  - 03-mc-fixrps-ran-du-fec6-server-profile-du-supermicro00-pao-profile-du-supermicro00.yaml

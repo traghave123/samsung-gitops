@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 4glte-du-mysore-cm
+  namespace: altiostar-4g-du-mysore
+data:
+  #platform.properties:
+  ANI_CHASSIS_TYPE: "du"
+  ANI_CHASSIS_SUBTYPE: "riud"
+  ANI_HT_STATE: "enabled"
+  PHYSICAL_CORE_COUNT: "18"
+  LOGICAL_CORE_COUNT: "18"
+  PHYSICAL_NRT_CPU_LIST: "[0, 1, 2, 24, 25, 26]"
+  #profile.app.properties:
+  MAX_EUTRAN_CELLS: "3"
+  MAX_NO_OF_UE: "1500"
+  BANDWIDTH: "20"
+  MIMO: "4X4"
+  UNIT_DEPLOYMENT_TYPE: "OUTDOOR"
+  CELL_TYPE: "MACRO"
+  OS_LOGICAL_CPU_LIST: "0-1"
+  L2_CPU_LIST: "2-7"
+  L2_RT_CPU_LIST: "3-7"
+  L2_NRT_CPU_LIST: "2"
+  L2_BBUPOOL_NRT_CPU_LIST: "1"
+  L1_CPU_LIST: "8-17"
+  L1_CPU_LIST_DEP_CFG: "0-17"
+  L1_AGENT_CPU: "2"
+  L1_CONSOLELOGGER_CPU: "2"
+  VFIO_DRIVER: "vfio_pci"
+  DPDK_VF_PCI_ENV_NAME: "PCIDEVICE_OPENSHIFT_IO_VRAN_VFIO"
+  HOST_NETWORKING: "false"
+  NF_PROFILE: "ORAN"
+  SKIP_BBDEV_CONFIG: "True"
+  FEC_ENABLED: "true"
+  FPGA_VF_PCI_ENV_NAME: "PCIDEVICE_INTEL_COM_INTEL_FEC_LTE"

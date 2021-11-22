@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 4glte-du-01-mysore-p1
+  namespace: altiostar-4g-du-mysore
+  labels:
+    node-role.kubernetes.io/ran-du-mysore-server-profile-du-supermicro00: ""
+spec:
+   selector:
+     matchLabels:
+       node-role.kubernetes.io/ran-du-mysore-server-profile-du-supermicro00: ""
+   serviceName: 4glte-du-mysore-p1
+   replicas: 1
+   strategy:
+     type: Recreate
+   template:
+    metadata:
+      labels:
+        node-role.kubernetes.io/ran-du-mysore-server-profile-du-supermicro00: ""
+      annotations:
+        cpu-load-balancing.crio.io: "true"
+        k8s.v1.cni.cncf.io/networks: |-
+          [
+            {
+              "name": "mysore-vran-mgmt",
+              "ips": ["10.27.5.211/24"]
+            },
+            {
+              "name": "mysore-vran-mh",
+              "ips": ["10.27.6.211/24"]
+            },
+            {
+              "name": "mysore-vran-mp",
+              "ips": ["172.21.0.211/16"]
+            },
+            {
+              "name": "mysore-vran-fh"
+            }]
+    spec:
+      terminationGracePeriodSeconds: 20
+      serviceAccountName: dp-sa-r
+      serviceAccount: dp-sa-r
+      runtimeClassName: performance-ran-du-mysore-server-profile-du-supermicro00-pao-profile-du-supermicro00
+      nodeSelector:
+        node-role.kubernetes.io/ran-du-mysore-server-profile-du-supermicro00: ""
+      containers:
+        - name: ani-4g-du1
+          image: "vran-quay-registry-quay-openshift-operators.apps.mgmtcluster.rtp.raleigh.ibm.com/olmlocal/ani-4g-du:latest"
+          imagePullPolicy: IfNotPresent       
+          command: ["bash","-c","/opt/ani/helm/entrypoint.sh","while true; do sleep 1000; done"]
+          envFrom:
+            - configMapRef:
+                name: 4glte-du-mysore-cm
+          env:
+             - name: NODE_NAME
+               valueFrom:
+                 fieldRef:
+                   fieldPath: spec.nodeName
+             - name: MY_POD_IP
+               valueFrom:
+                 fieldRef:
+                   fieldPath: status.podIP
+          volumeMounts:
+            - mountPath: /mnt/huge
+              name: hugepage
+              readOnly: false
+            - name: devices
+              mountPath: /sys/devices
+              readOnly: false
+            - mountPath: /memfs
+              name: memfs
+            - mountPath: /dskfs/fm
+              name: dskfsfm
+            - mountPath: /opt/ani/helm/
+              name: scripts
+            - mountPath: /prov-config/
+              name: prov
+   
+          resources:
+            requests:
+              ephemeral-storage: 14Gi
+              hugepages-1Gi: 8Gi
+              memory: 10Gi
+              openshift.io/vran_netdevice: 2
+              openshift.io/vran_netdevice_fh: 1
+              openshift.io/vran_vfio: 1
+              intel.com/intel_fec_lte: 1
+              cpu: "18"
+            limits:
+              ephemeral-storage: 14Gi
+              hugepages-1Gi: 8Gi
+              memory: 10Gi
+              openshift.io/vran_netdevice: 2
+              openshift.io/vran_netdevice_fh: 1
+              openshift.io/vran_vfio: 1
+              intel.com/intel_fec_lte: 1
+              cpu: "18"
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - SYS_ADMIN
+                - SYS_MODULE
+                - SYS_NICE
+                - SYS_RESOURCE
+                - IPC_LOCK
+                - FOWNER
+      volumes:
+        - name: hugepage
+          emptyDir:
+            medium: HugePages
+        - name: devices
+          hostPath:
+            path: "/sys/devices"
+        - name: memfs
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
+        - name: dskfsfm
+          hostPath:
+            path: "/var/newdskfs/1"
+        - name: prov
+          configMap:
+            name: 4glte-du-01-mysore-p1
+            items:
+            - key: prov.ini
+              path: prov.ini
+        - name: scripts
+          configMap:
+            name: ani-scripts
+            items:
+            - key: entrypoint
+              path: entrypoint.sh
+            - key: cpuLayout
+              path: ani_cpu_layout.sh
+            defaultMode: 0777
+      tolerations:
+        - key: "node.kubernetes.io/unreachable"
+          operator: "Exists"
+          effect: "NoExecute"
+        - key: "node.kubernetes.io/not-ready"
+          operator: "Exists"
+          effect: "NoExecute"
+        - key: "node.kubernetes.io/unschedulable"
+          operator: "Exists"
+          effect: "NoExecute"

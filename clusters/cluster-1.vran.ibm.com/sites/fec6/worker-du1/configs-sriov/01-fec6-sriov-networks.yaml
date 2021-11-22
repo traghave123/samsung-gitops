@@ -1,0 +1,88 @@
+ 
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: fec6-vran-fh
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_vfio_fh
+  networkNamespace: altiostar-4g-du-fec6
+  vlan: 2001
+  ipam: |-
+    {}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: fec6-vran-mh
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_netdevice_mgmt_mh
+  networkNamespace: altiostar-4g-du-fec6
+  vlan: 2011
+ 
+  ipam: |-
+    {"type": "static"}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: fec6-vran-mp
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_netdevice_mp
+  networkNamespace: altiostar-4g-du-fec6
+  vlan: 2003
+ 
+  ipam: |-
+    {"type": "static"}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: fec6-vran-mgmt
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_netdevice_mgmt_mh
+  networkNamespace: altiostar-4g-du-fec6
+  vlan: 2010
+ 
+  ipam: |-
+    {"type": "static"}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+

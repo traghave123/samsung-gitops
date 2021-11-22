@@ -1,0 +1,22 @@
+---
+apiVersion: performance.openshift.io/v1
+kind: PerformanceProfile
+metadata:
+  name: ran-du-fec6-server-profile-du-supermicro00-pao-profile-du-supermicro00
+spec:
+  cpu:
+    isolated: "3-23,27-47"
+    reserved: "0-2,24-26"
+  hugepages:
+    defaultHugepagesSize: "1G"
+    pages:
+    - size: "1G"
+      count: 20
+      node: 0 
+  numa:
+    topologyPolicy: best-effort
+    
+  realTimeKernel:
+    enabled: true 
+  nodeSelector:
+    node-role.kubernetes.io/ran-du-fec6-server-profile-du-supermicro00: ""

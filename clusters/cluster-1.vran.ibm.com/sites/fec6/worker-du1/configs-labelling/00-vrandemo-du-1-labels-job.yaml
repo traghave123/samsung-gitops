@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+#    argocd.argoproj.io/sync-wave: "30"
+  name: nodes-label-job-vrandemo-du-1
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+        - image: ran-21-kvm.comm.ibm.gsc:5000/ocp4/openshift4:4.6.16-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/node
+              echo ""
+              echo -n "Add node labels"
+              until oc wait --selector=node-role.kubernetes.io/ran-du-fec6-server-profile-du-supermicro00='',kubernetes.io/hostname=vrandemo-du-1 --for=condition=ready nodes
+              do
+                echo -n "...still waiting for applying labels"
+                oc label node vrandemo-du-1 node-role.kubernetes.io/ran-du-fec6-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/fec6-sriov-vfio_fh-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/fec6-sriov-vfio_ar-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/fec6-sriov-netdevice_mgmt_mh-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/fec6-sriov-netdevice_mp-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/fec6-ptp-server-profile-du-supermicro00=""
+                oc label node vrandemo-du-1 ran.openshift.io/n3k=""
+                oc label node vrandemo-du-1 ran.openshift.io/ptp=""
+                oc label node vrandemo-du-1 ran.openshift.io/sriov=""
+
+                sleep $SLEEP
+              done
+              echo "DONE"
+          imagePullPolicy: Always
+          name: nodes-label-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

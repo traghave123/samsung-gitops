@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: altiostar-4g-cu-bangalore
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-pod2-certs-bangalore-cu
+  namespace: altiostar-4g-cu-bangalore
+  labels:
+    app: containerized-data-importer
+type: Opaque
+data:
+  accessKeyId: "dnJhbmFkbWlu"
+  secretKey: "cGFzc3dvcmQ="
+  

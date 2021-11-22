@@ -1,0 +1,6 @@
+{
+    "application-name": "fec6-worker-du1-pao",
+    "cluster-name": "cluster-1.vran.ibm.com",
+    "cluster-address": "https://api.cluster-1.vran.ibm.com:6443",
+    "path": "clusters/cluster-1.vran.ibm.com/sites/fec6/worker-du1/configs-pao"
+}

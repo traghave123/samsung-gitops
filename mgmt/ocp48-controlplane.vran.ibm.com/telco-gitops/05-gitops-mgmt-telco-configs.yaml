@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+ name: ocp48-controlplane-vran
+ namespace: telco-gitops
+spec:
+  generators:
+    - git:
+        directories:
+          - path: clusters/mgmt/ocp48-controlplane.vran.ibm.com/config-*
+        repoURL: 'https://github.com/jvijayku/ztp-for-ocp4.8.git'
+        revision: HEAD
+  template:
+    metadata:
+      name: '00-ocp48-controlplane-{{path.basename}}'
+      namespace: telco-gitops
+    spec:
+      destination:
+        namespace: telco-gitops
+        server: 'https://kubernetes.default.svc'
+      project: default
+      source:
+        path: '{{path}}'
+        repoURL: 'https://github.com/jvijayku/ztp-for-ocp4.8.git'
+        targetRevision: HEAD

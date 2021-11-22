@@ -1,0 +1,69 @@
+#---
+#apiVersion: ran.openshift.io/v1
+#kind: SiteConfig
+#metadata:
+#  name: "sno-2"
+#  namespace: "sno-2"
+#spec:
+#  baseDomain: "test.vran.ibm.com"
+#  pullSecretRef:
+#    name: "assisted-deployment-pull-secret"
+#  clusterImageSetNameRef: "img4.8.14-x86-64-appsub"
+#  sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDTDngV/AdTc1ALlWjqUi6SjZ2iu1E/2vZezNSiVCAFeQCgop2hp8/U6vz/qC4a4E4WWqgURsDrhaHxic7YCvQ7V6R/ukMV4qRPC326Gn4Thur7bkYb8axctUuuUM3AkZDg/KZ7NkZOV6/2I/WuTvQWc6sMj4AzwdcPmUfnIw6ziiHC8xpuNvggofAn9EqFc0POrLXZRBDF83Me9J9IwW0X9563IoxE9IixcmRudVXat99A0zUyGk6MriBmv/8WiVBbKaPXpgDmp40eek51PBm20/AByJuJ9gsV46wtm6tlqySzyY5pfEWXCAnDQeSquXzPR6cEdKMrK7y68qxfwLtmjpEJiNCZaCex4D4nHyS4BxHsfpYarGsqUqlAUGEMYrNqrcwzxtRGiiHB6TnCw12JGg6QSaazgpBp/GycEtlrxM4UasAdtH5nJSzgElPJSJTB7zgML7Dwb/SujCmrrT0NWczPjdTZzrF++oo4N13NDQIjng2PyLDR1H9GqJ0oeCPfiKMn7BCBoHxQoo8TQYAp7bd8ayj0jF34ZtIXrkw1yhfS6m9yNaplnV/CeniCJYUmuAov4DiqYfz1JKYh9jZlhjsSABcUw4ocsg0uAw5R53NokEKRB6YQJHLBjuSkfMFbBAVFwxCiXrGr9ECUqAmgdCll5G7k4MJUEskTCkt4xQ== vijjay12@oc3078654033.ibm.com"
+#  clusters:
+#  - clusterName: "sno-2"
+#    clusterType: "sno"
+#    clusterProfile: "du"
+#    clusterLabels:
+#      group-du-sno: ""
+#      common: true
+#      sites : "sno-2"
+#    clusterNetwork:
+#      - cidr: 10.128.0.0/14
+#        hostPrefix: 23
+#    machineNetwork:
+#      - cidr: 9.37.195.0/26
+#    serviceNetwork:
+#      - 172.30.0.0/16
+#        #additionalNTPSources:
+#        #- 2620:52:0:1310::1f6
+#    nodes:
+#      - hostName: "siteconfig-rack13dell9"
+#        bmcAddress: "idrac-virtualmedia+https://9.37.131.44/redfish/v1/Systems/System.Embedded.1"
+#        bmcCredentialsName:
+#          name: "rack13dell9-bmc-secret"
+#        bootMACAddress: "78:AC:44:22:9B:94"
+#        bootMode: "UEFI"
+#        rootDeviceHints:
+#          deviceName: '/dev/sda'
+#        cpuset: "0-1,38-39"
+#        #nodeNetwork:
+#        #  interfaces:
+#        #    - name: eno1
+#        #      macAddress: "0C:42:A1:8A:74:EC"
+#        #  config:
+#        #    interfaces:
+#        #      - name: eno1
+#        #        type: ethernet
+#        #        state: up
+#        #        macAddress: "0C:42:A1:8A:74:EC"
+#        #        ipv4:
+#        #          enabled: false
+#        #        ipv6:
+#        #          enabled: true
+#        #          address:
+#        #          - ip: 2620:52::10e7:e42:a1ff:fe8a:900
+#        #            prefix-length: 64
+#        #    dns-resolver:
+#        #      config:
+#        #        search:
+#        #        - clus2.t5g.lab.eng.bos.redhat.com
+#        #        server:
+#        #        - 2620:52:0:1310::1f6
+#        #    routes:
+#        #      config:
+#        #      - destination: ::/0
+#        #        next-hop-interface: eno1
+#        #        next-hop-address: 2620:52:0:10e7::fc
+#        #        table-id: 254
+#

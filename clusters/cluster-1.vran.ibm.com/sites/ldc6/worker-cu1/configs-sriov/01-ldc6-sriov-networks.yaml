@@ -1,0 +1,64 @@
+ 
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: ldc6-vran-mh
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_vfio
+  networkNamespace: altiostar-4g-cu-ldc6
+  vlan: 2011
+  ipam: |-
+    {}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: ldc6-vran-mgmt
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_vfio
+  networkNamespace: altiostar-4g-cu-ldc6
+  vlan: 2010
+  ipam: |-
+    {}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+
+---
+###############################################################################
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: ldc6-vran-bh-s1c
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: vran_vfio
+  networkNamespace: altiostar-4g-cu-ldc6
+  vlan: 803
+  ipam: |-
+    {}
+  linkState: auto  
+  # spoofChk: "<spoof_check>"
+  # maxTxRate: <max_tx_rate>
+  # minTxRate: <min_rx_rate>
+  # vlanQoS: <vlan_qos>
+  # trust: "<trust_vf>"
+  # capabilities: <capabilities>
+

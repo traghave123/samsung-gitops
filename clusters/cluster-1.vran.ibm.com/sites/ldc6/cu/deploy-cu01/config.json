@@ -1,0 +1,6 @@
+{
+    "application-name": "ldc6-cu01",
+    "cluster-name": "cluster-1.vran.ibm.com",
+    "cluster-address": "https://api.cluster-1.vran.ibm.com:6443",
+    "path": "clusters/cluster-1.vran.ibm.com/sites/ldc6/deploy-cu01"
+}

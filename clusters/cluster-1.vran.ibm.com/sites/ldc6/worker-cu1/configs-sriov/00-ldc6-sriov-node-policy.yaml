@@ -1,0 +1,25 @@
+ 
+---
+###############################################################################
+# specific resourceName for it (eg. sriov-netdevice-smci00)
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: ldc6-sriov-a-vfio-dell00-server-profile-cu-dell-r640-00
+  namespace: openshift-sriov-network-operator
+spec:
+  resourceName: "vran_vfio"
+  nodeSelector:
+    ran.openshift.io/sriov: ""
+    ran.openshift.io/ldc6-sriov-vfio-server-profile-cu-dell-r640-00: ""
+  deviceType: vfio-pci
+  priority: 10
+  #mtu: 1500
+  numVfs: 64
+  nicSelector:
+    vendor: "8086"
+    deviceID: "158b"
+    pfNames:
+          - ens1f0#0-31
+          - ens3f0#0-31
+    

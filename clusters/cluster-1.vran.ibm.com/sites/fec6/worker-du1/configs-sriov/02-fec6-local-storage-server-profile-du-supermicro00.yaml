@@ -1,0 +1,20 @@
+---
+apiVersion: local.storage.openshift.io/v1
+kind: LocalVolume
+metadata:
+  name: fec6-local-storage-server-profile-du-supermicro00
+  namespace: openshift-local-storage
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+        - key: ran.openshift.io/fec6-local-storage-server-profile-du-supermicro00
+          operator: Exists
+  storageClassDevices:
+    - storageClassName: "fec6-local-storage-server-profile-du-supermicro00"
+      volumeMode: Filesystem
+      fsType: xfs
+      # Update to match profile composition
+      devicePaths:
+        #- /dev/nvme1n1p4
+        # - /dev/nvme1n2

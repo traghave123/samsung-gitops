@@ -1,0 +1,40 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+#    argocd.argoproj.io/sync-wave: "30"
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  name: vrandemo-cu-1-wait-job-ran-cu-ldc6-smci00
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+        - image: ran-21-kvm.comm.ibm.gsc:5000/ocp4/openshift4:4.6.16-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/mcp
+              echo ""
+              echo -n "Waiting for the node to converge."
+              sleep $SLEEP
+              until oc wait --selector=node-role.kubernetes.io/ran-cu-ldc6-server-profile-cu-dell-r640-00='' --for=condition=ready nodes
+              do
+                echo -n "...still waiting for $MCP to converge"
+                sleep $SLEEP
+              done
+              echo "DONE"
+              
+          imagePullPolicy: Always
+          name: nodes-wait-job
+          env:
+          - name: SLEEP
+            value: "5"
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

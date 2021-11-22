@@ -1,0 +1,19 @@
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  name: vran-cluster-1
+  namespace: open-cluster-management
+  labels:
+    infraenvs.agent-install.openshift.io: "vran-cluster-env-1"
+  annotations:
+    inspect.metal3.io: disabled
+    bmac.agent-install.openshift.io/hostname: rack10dell6
+spec:
+  online: true
+  bootMode: "UEFI"
+  bmc:
+    address: 9.37.131.73
+    credentialsName: rack10dell6-secret
+    disableCertificateVerification: true
+  bootMACAddress: 40:A6:B7:5E:AD:50
+  automatedCleaningMode: disabled

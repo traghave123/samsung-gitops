@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 4glte-du-01-mysore-p1
+  namespace: altiostar-4g-du-mysore
+data:
+  prov.ini:   |
+    panel-id: 21
+    hostname: 4glte-du-01-mysore-p1
+    serial-no: 4glte-du-01-mysore-p1
+    mgmt-intf: net1
+    mh-intf: net2
+    mp-intf: net3
+    fh-intf: net4
+    oran-support: yes
+    skip-sw-upgrade: yes
+    nw-type: v4
+    ha-enabled: yes
+    ar-nw-enabled: no
+    device-type: RIU-D
+    vcu-fqdn: 10.27.5.237
+    mp-vlan-id: 2003 
+    fh-vlan-id: 2001
+    riu-vlan-id: 2001
+    initial_rtd_check: no

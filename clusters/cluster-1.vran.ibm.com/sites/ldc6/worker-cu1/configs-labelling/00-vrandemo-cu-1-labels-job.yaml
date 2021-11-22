@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+#    argocd.argoproj.io/sync-wave: "30"
+  name: nodes-label-job-vrandemo-cu-1
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+        - image: ran-21-kvm.comm.ibm.gsc:5000/ocp4/openshift4:4.6.16-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/node
+              echo ""
+              echo -n "Add node labels"
+              until oc wait --selector=node-role.kubernetes.io/ran-cu-ldc6-server-profile-cu-dell-r640-00='',kubernetes.io/hostname=vrandemo-cu-1 --for=condition=ready nodes
+              do
+                echo -n "...still waiting for applying labels"
+                oc label node vrandemo-cu-1 node-role.kubernetes.io/ran-cu-ldc6-server-profile-cu-dell-r640-00=""
+                oc label node vrandemo-cu-1 ran.openshift.io/ocpvirt=""
+                oc label node vrandemo-cu-1 ran.openshift.io/sriov=""
+                oc label node vrandemo-cu-1 ran.openshift.io/ldc6-sriov-vfio-server-profile-cu-dell-r640-00=""
+
+                sleep $SLEEP
+              done
+              echo "DONE"
+          imagePullPolicy: Always
+          name: nodes-label-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

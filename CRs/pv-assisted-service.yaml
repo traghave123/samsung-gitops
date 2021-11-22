@@ -1,0 +1,22 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: assisted-service
+spec:
+  capacity:
+    storage: 50Gi
+  local:
+    path: /mnt/assisted-service
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  volumeMode: Filesystem
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                      #- worker0.vranmgmt.cp.fyre.ibm.com
+                - r10dell2

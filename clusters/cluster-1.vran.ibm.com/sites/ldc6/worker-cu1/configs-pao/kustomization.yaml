@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  # Each SITE_ID is a different zone
+  topology.kubernetes.io/zone: ran-cu-ldc6-server-profile-cu-dell-r640-00
+
+commonAnnotations:  
+#  argocd.argoproj.io/sync-wave: "10"
+  argocd.argoproj.io/sync-options: Prune=false
+  argocd.argoproj.io/compare-options: IgnoreExtraneous  
+
+
+resources:
+  - 00-hook-vrandemo-cu-1-wait-job-ldc6.yaml
+
+  - 00-hook-paoperator-wait-job-ldc6.yaml
+  - 00-mcp-ran-cu-ldc6-server-profile-cu-dell-r640-00.yaml
+  - 01-pao-ran-cu-ldc6-server-profile-cu-dell-r640-00-pao-profile-cu-dell-r640-00.yaml
+#  - 00-node-labels.yaml
+#  - 01-mcp-wait-job-sa-role.yaml

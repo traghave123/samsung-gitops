@@ -1,0 +1,171 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ani-scripts
+  namespace: altiostar-4g-du-mysore
+data:
+  entrypoint: |
+    #!/bin/bash
+    # Entrypoint script used for 4G Helm DU deployment.
+    # Used for custom handling of 4G DU inputs
+    # If condition for ensuring backward compatibility
+    if [ -f /prov-config/prov.ini ]; then
+        # Copy the prov.ini from configmap volume to /mnt/ directory
+        echo "prov-config volume present. Helm Chart deployment being used."
+        cp /prov-config/prov.ini /mnt/
+    else
+        echo "Using POD Yaml based deployment"
+    fi
+    #Default is false if not set
+    DEBUG_KEEP_POD_ALIVE=${DEBUG_KEEP_POD_ALIVE:-"false"}
+    # ------- Networking Section Start -------
+    if [ $HOST_NETWORKING = "false" ]; then
+        # HACK: Feed the FH PCI address of DPDK VF to prov.ini
+        FH_DPDK_VF_PCI_ENV=`echo $DPDK_VF_PCI_ENV_NAME`
+        # DPDK_VF_PCI_ENV_NAME env's value is set by sriov device plugin
+        sed -i "/.*fh-pci-addrs*/d" /mnt/prov.ini
+        sed -i "/.*fh-pci-addrss*/d" /mnt/prov.ini
+        echo "fh-pci-addrs: `printenv $FH_DPDK_VF_PCI_ENV`" >> /mnt/prov.ini
+        echo "fh-pci-addrss: `printenv $FH_DPDK_VF_PCI_ENV`" >> /mnt/prov.ini
+    fi
+    if [ $FEC_ENABLED = "true" ]; then
+        FPGA_VF_PCI_ENV=`echo $FPGA_VF_PCI_ENV_NAME`
+        sed -i "/.*fec-off-pci-addrs*/d" /mnt/prov.ini
+        echo "fec-off-pci-addrs: `printenv $FPGA_VF_PCI_ENV`" >> /mnt/prov.ini
+    fi
+    if [ $AR_ENABLED = "true" ]; then
+    # HACK: Feed the AR PCI address to prov.ini
+        AR_VF_PCI_ENV=`echo $AR_VF_PCI_ENV_NAME`
+    # AR_VF_PCI_ENV_NAME env's value is set by sriov device plugin
+        sed -i "/.*ar-intf*/d" /mnt/prov.ini
+        sed -i "/.*ar-nw-enabled*/d" /mnt/prov.ini
+        sed -i "/.*ar-pci-addrs*/d" /mnt/prov.ini
+        sed -i "/.*ar-pci-addrss*/d" /mnt/prov.ini
+        echo "ar-nw-enabled: yes" >> /mnt/prov.ini
+        echo "ar-intf: vEth0" >> /mnt/prov.ini
+        echo "ar-mtu: `printenv AR_INTF_MTU`" >> /mnt/prov.ini
+        echo "ar-pci-addrs: `printenv $AR_VF_PCI_ENV`" >> /mnt/prov.ini
+        echo "ar-pci-addrss: `printenv $AR_VF_PCI_ENV`" >> /mnt/prov.ini
+    fi
+    #if [ $FEC_ENABLED = "true" ]; then
+        # HACK: Feed the FPGA PCI address to prov.ini
+        #   FPGA_VF_PCI_ENV=`echo $FPGA_VF_PCI_ENV_NAME`
+        # FPGA_VF_PCI_ENV_NAME env's value is set by sriov device plugin
+        #sed -i "/.*fec-off-pci-addrs*/d" /mnt/prov.ini
+        #echo "fec-off-pci-addrs: `printenv $FPGA_VF_PCI_ENV`" >> /mnt/prov.ini
+        #fi
+    # ------- Networking Section End -------
+    # If condition for ensuring backward compatibility
+    if [[ -z "${CPU_LAYOUT}" ]]; then
+        # Generate cpu affinity layout and update CPU_LAYOUT env
+        source /opt/ani/helm/ani_cpu_layout.sh
+    else
+        echo "CPU_LAYOUT preset as $CPU_LAYOUT"
+    fi
+    # Go ahead and start the docker entrypoint
+    exec taskset -c $NRT_APP_SHARED_PHYSICAL_CPUS /opt/ani/scripts/entrypoint.sh
+    #source /opt/ani/scripts/entrypoint.sh
+    if [[ "false" != "${DEBUG_KEEP_POD_ALIVE}" ]]; then
+        sleep infinity
+    fi
+  cpuLayout: |
+    #!/bin/bash
+    find_sibling () {
+      # In case of BM machines, we are seeing siblings as comma separated, where as in CVIM vDU we are seeing as - separated
+      local arr=(`cat /sys/devices/system/cpu/cpu$1/topology/thread_siblings_list | cut -d ":" -f2 | tr -d " " | sed -e 's/,/ /g' -e 's/-/ /g'`)
+      for sib in "${arr[@]}"
+      do
+        if [[ "$sib" != "$1" ]]; then
+           echo "${sib}";
+        fi
+      done
+    }
+    is_sibling_allotted () {
+      for core in "${cores[@]}"
+      do
+        if [[ "$core" == "$1" ]]; then
+          return 0 # true
+        fi
+      done
+      return 1 # false
+    }
+    append_layout () {
+      if [[ ${#layout[@]} -lt ${#cores[@]} ]]; then
+        #Check if element already added before
+        for core in "${layout[@]}"
+        do
+          if [[ "$core" == "$1" ]]; then
+            return
+          fi
+        done
+        layout+=($1)
+      fi
+    }
+    parse_allocated_cpu_list_output () {
+      local range=(`cat /sys/fs/cgroup/cpuset/cpuset.cpus`)
+      # echo $range
+      IFS=',' read -ra parts <<<$range
+      for part in "${parts[@]}"; do
+        [[ $part =~ - ]] && cores+=($(eval echo {${part/-/..}})) || cores+=($part)
+      done
+      unset IFS
+      # echo ${cores[@]}
+    }
+    sort_cores () {
+      #IFS=$'\n' sorted=($(sort -r <<<"${cores[*]}"))
+      IFS=$'\n' sorted_cores=($(sort -n <<<"${cores[*]}"))
+      unset IFS
+    }
+    cores=()
+    sorted_cores=()
+    parse_allocated_cpu_list_output
+    sort_cores
+    layout=()
+    > /etc/profile.d/anicpulayout.sh
+    for element in "${sorted_cores[@]}"
+    do
+        sibling=$(find_sibling $element)
+        append_layout $element
+        if is_sibling_allotted $sibling; then
+          append_layout $sibling
+          export CPU_SIBLING_FOR_${element}=${sibling}
+          echo "export CPU_SIBLING_FOR_${element}=${sibling}" >> /etc/profile.d/anicpulayout.sh
+        else
+          export CPU_SIBLING_FOR_${element}="NOT_ALLOCATED"
+          echo "export CPU_SIBLING_FOR_${element}=\"NOT_ALLOCATED\"" >> /etc/profile.d/anicpulayout.sh
+        fi
+    done
+    echo ${layout[@]}
+    # When this script is invoked from BM or vDU (non-k8s) platform, its job is to only
+    # generate sibling core env list
+    if [ "${IS_MICRO_SERVICE}" != "True" ]; then
+        chmod +x /etc/profile.d/anicpulayout.sh
+        return
+    fi
+    echo ${layout[@]}
+    export CPU_LAYOUT="${layout[@]}"
+    # Set NRT_APP_SHARED_PHYSICAL_CPUS from CPU_LAYOUT (1st 2 entries)
+    export NRT_APP_SHARED_PHYSICAL_CPUS="${layout[0]},${layout[1]}"
+    # Set PHYSICAL_RT_CPU_LIST. Excluding the first 2 CPUS in the generated layout
+    # generate a range formatted output for allocated cpus. ex: 2-11,14-23
+    rt_cores=(${layout[@]:2})
+    IFS=$'\n' rt_cores_sorted=($(sort -n <<<"${rt_cores[*]}"))
+    unset IFS
+    tmp_rt=`printf "%s," "${rt_cores_sorted[@]}" | cut -d "," -f 1-${#rt_cores_sorted[@]}`
+    rt_cpus=`echo $tmp_rt, | sed "s/,/\n/g" | while read num; do
+        if [[ -z $first ]]; then
+            first=$num; last=$num; continue;
+        fi
+        if [[ num -ne $((last + 1)) ]]; then
+            if [[ first -eq last ]]; then echo $first; else echo $first-$last; fi
+            first=$num; last=$num
+        else
+            : $((last++))
+        fi
+    done | paste -sd ","`
+    echo $rt_cpus
+    export PHYSICAL_RT_CPU_LIST=$rt_cpus
+    echo "export CPU_LAYOUT='${layout[@]}'
+    export NRT_APP_SHARED_PHYSICAL_CPUS='${layout[0]},${layout[1]}'
+    export PHYSICAL_RT_CPU_LIST='$rt_cpus'" >> /etc/profile.d/anicpulayout.sh
+    chmod +x /etc/profile.d/anicpulayout.sh

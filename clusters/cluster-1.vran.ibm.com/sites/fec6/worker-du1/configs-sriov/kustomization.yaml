@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  # Each SITE_ID is a different zone
+  topology.kubernetes.io/zone: ran-du-fec6-server-profile-du-supermicro00
+
+resources:
+  # SRIOV Configs
+  - 00-hook-mcp-wait-job-fec6.yaml
+  - 00-fec6-sriov-namespace.yaml
+  - 00-fec6-sriov-node-policy.yaml
+  - 01-fec6-sriov-networks.yaml
+#  - 02-site-local-storage-server.yaml
+  - 03-fec6-ptp-server-profile-du-supermicro00.yaml

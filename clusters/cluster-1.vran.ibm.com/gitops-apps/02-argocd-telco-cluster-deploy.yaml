@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: clusters
+  namespace: cluster-1-gitops
+spec: 
+  destination:
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: clusters/cluster-1.vran.ibm.com/ztp/siteconfig
+    repoURL: https://github.ibm.com/ocp48automation/telco-gitops.git
+    targetRevision: develop
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+#    syncOptions:
+#    - CreateNamespace=true

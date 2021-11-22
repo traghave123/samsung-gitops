@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+ name: cluster-1.vran.ibm.com-configs
+ namespace: cluster-1.vran.ibm.com
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
+        revision: HEAD
+        files:
+        - path: "clusters/cluster-1.vran.ibm.com/sites/*/*/configs-*/config.json"
+  template:
+    metadata:
+      name: '{{application-name}}'
+      namespace: cluster-1.vran.ibm.com
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
+        targetRevision: develop
+        path: '{{path}}'
+      destination:
+        server: '{{cluster-address}}'

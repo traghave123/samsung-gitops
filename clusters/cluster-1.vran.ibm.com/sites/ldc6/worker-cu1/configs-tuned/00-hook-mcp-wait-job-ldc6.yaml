@@ -1,0 +1,41 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+#    argocd.argoproj.io/sync-wave: "30"
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  name: mcp-wait-cu-ldc6-server-profile-cu-dell-r640-00-post
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+        - image: ran-21-kvm.comm.ibm.gsc:5000/ocp4/openshift4:4.6.16-cli
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/mcp
+              echo ""
+              echo -n "Waiting for the MCP $MCP to converge."
+              sleep $SLEEP
+              until oc wait --for condition=updated --timeout=60s mcp $MCP
+              do
+                echo -n "...still waiting for $MCP to converge"
+                sleep $SLEEP
+              done
+              echo "DONE"
+          imagePullPolicy: Always
+          name: mcp-wait-job
+          env:
+          - name: SLEEP
+            value: "5"
+          - name: MCP 
+            value: ran-cu-ldc6-server-profile-cu-dell-r640-00
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

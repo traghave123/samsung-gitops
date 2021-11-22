@@ -1,0 +1,11 @@
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: redhat-operators-1026
+  namespace: openshift-marketplace
+spec:
+  displayName: Red Hat Operators Snapshot (2021/10/26)
+  image: quay.io/redhat-partner-solutions/olm_snapshot_redhat_catalog:v4.8_2021_10_26
+  publisher: Red Hat Telco Solutions
+  sourceType: grpc

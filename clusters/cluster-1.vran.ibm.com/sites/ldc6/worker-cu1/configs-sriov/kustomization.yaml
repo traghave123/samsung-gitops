@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  # Each SITE_ID is a different zone
+  topology.kubernetes.io/zone: ran-cu-ldc6-server-profile-cu-dell-r640-00
+
+resources:
+  # SRIOV Configs
+  - 00-hook-mcp-wait-job-ldc6.yaml
+  - 00-ldc6-sriov-namespace.yaml
+  - 00-ldc6-sriov-node-policy.yaml
+  - 01-ldc6-sriov-networks.yaml
