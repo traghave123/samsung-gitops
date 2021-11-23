@@ -2,8 +2,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
- name: cluster-1.vran.ibm.com-configs
- namespace: cluster-1.vran.ibm.com
+ name: node-configs
+ namespace: cluster-1-gitops
 spec:
   generators:
     - git:
