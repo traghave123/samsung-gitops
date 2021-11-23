@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Node
 metadata:
   name: sno-5
+  labels: {}
     
 #---
 #apiVersion: batch/v1
