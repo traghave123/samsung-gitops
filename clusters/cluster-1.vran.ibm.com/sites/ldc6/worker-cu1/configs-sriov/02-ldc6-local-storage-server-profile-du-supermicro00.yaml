@@ -2,19 +2,17 @@
 apiVersion: local.storage.openshift.io/v1
 kind: LocalVolume
 metadata:
-  name: localstorage
+  name: ldc6-local-storage-server-profile-cu-dell-r740-00
   namespace: openshift-local-storage
 spec:
   managementState: Managed
   nodeSelector:
     nodeSelectorTerms:
       - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - poc-cu2.samsung.com
+          - key: ran.openshift.io/ldc6-local-storage-server-profile-cu-dell-r740-00
+            operator: Exists
   storageClassDevices:
-    - storageClassName: localstorage
+    - storageClassName: ldc6-local-storage-server-profile-cu-dell-r740-00
       volumeMode: Filesystem
       fsType: xfs 
       devicePaths: 
@@ -24,14 +22,9 @@ spec:
         - /dev/autopart/lv_4
         - /dev/autopart/lv_5
 ---
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: localstorage
-  labels:
-    local.storage.openshift.io/owner-name: localstorage
-    local.storage.openshift.io/owner-namespace: openshift-local-storage
   annotations:
-    storageclass.kubernetes.io/is-default-class: 'true'
-provisioner: kubernetes.io/no-provisioner
-reclaimPolicy: Delete        
+    storageclass.kubernetes.io/is-default-class: "true"

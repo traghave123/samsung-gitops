@@ -5,21 +5,48 @@
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetworkNodePolicy
 metadata:
-  name: ldc6-sriov-a-vfio-dell00-server-profile-cu-dell-r640-00
+  name: ldc6-sriov-a-vfio-dell00-server-profile-cu-dell-r740-00
   namespace: openshift-sriov-network-operator
 spec:
-  resourceName: "vran_vfio"
-  nodeSelector:
-    ran.openshift.io/sriov: ""
-    ran.openshift.io/ldc6-sriov-vfio-server-profile-cu-dell-r640-00: ""
-  deviceType: vfio-pci
-  priority: 10
-  #mtu: 1500
-  numVfs: 64
+  deviceType: netdevice
+  isRdma: false
+  linkType: eth
+  mtu: 1500
   nicSelector:
+    pfNames: 
+    - ens1f0#0-3
+    deviceID: 158b
     vendor: "8086"
-    deviceID: "158b"
-    pfNames:
-          - ens1f0#0-31
-          - ens3f0#0-31
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+    ran.openshift.io/ldc6-sriov-vfio-server-profile-cu-dell-r740-00: ""
+  numVfs: 8
+  priority: 10
+  resourceName: cu_sriov_vfs
     
+---
+###############################################################################
+# specific resourceName for it (eg. sriov-netdevice-smci00)
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: ldc6-sriov-a-vfio-dell00-server-profile-cu-dell-r740-00
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: vfio-pci
+  isRdma: false
+  linkType: eth
+  mtu: 1500
+  nicSelector:
+    pfNames: 
+    - ens1f0#4-7
+    deviceID: 158b
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+    ran.openshift.io/ldc6-sriov-vfio-server-profile-cu-dell-r740-00: ""
+  numVfs: 8
+  priority: 10
+  resourceName: f1u
+    
+---

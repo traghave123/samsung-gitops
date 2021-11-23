@@ -4,9 +4,7 @@ kind: Job
 metadata:
   annotations:
 #    argocd.argoproj.io/sync-wave: "30"
-    argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-  name: mcp-wait-du-fec6-server-profile-du-supermicro00-post
+  name: nodes-label-job-vrandemo-du-1
   namespace: argocd
 spec:
   template:
@@ -17,23 +15,18 @@ spec:
             - /bin/bash
             - -c
             - |
-              export HOME=/tmp/mcp
+              export HOME=/tmp/node
               echo ""
-              echo -n "Waiting for the MCP $MCP to converge."
-              sleep $SLEEP
-              until oc wait --for condition=updated --timeout=60s mcp $MCP
+              echo -n "Add node labels"
+              until oc wait --selector=feature.node.kubernetes.io/network-sriov.capable=true,kubernetes.io/hostname=vrandemo-du-1 --for=condition=ready nodes
               do
-                echo -n "...still waiting for $MCP to converge"
+                echo -n "...still waiting for applying labels"
+                oc label node vrandemo-du-1 feature.node.kubernetes.io/network-sriov.capable=true
                 sleep $SLEEP
               done
               echo "DONE"
           imagePullPolicy: Always
-          name: mcp-wait-job
-          env:
-          - name: SLEEP
-            value: "5"
-          - name: MCP 
-            value: ran-du-fec6-server-profile-du-supermicro00
+          name: nodes-label-job
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: cli-job-sa

@@ -28,3 +28,5 @@ bases:
   - github.com/openshift-telco/telco-gitops/base/operators/openshift-gitops?ref=main
   
   - github.com/openshift-telco/telco-gitops/base/configs/openshift-gitops?ref=main
+  
+  - github.com/openshift-telco/telco-gitops/base/operators/openshift-container-storage?ref=main

@@ -12,5 +12,4 @@ resources:
   - 00-fec6-sriov-namespace.yaml
   - 00-fec6-sriov-node-policy.yaml
   - 01-fec6-sriov-networks.yaml
-#  - 02-site-local-storage-server.yaml
-  - 03-fec6-ptp-server-profile-du-supermicro00.yaml
+  - 02-fec6-local-storage-server-profile-du-supermicro00.yaml

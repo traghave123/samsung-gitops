@@ -21,7 +21,7 @@ spec:
               echo ""
               echo -n "Waiting for the node to converge."
               sleep $SLEEP
-              until oc wait --selector=node-role.kubernetes.io/ran-du-fec6-server-profile-du-supermicro00='' --for=condition=ready nodes
+              until oc wait --selector=feature.node.kubernetes.io/network-sriov.capable=true --for=condition=ready nodes
               do
                 echo -n "...still waiting for $MCP to converge"
                 sleep $SLEEP

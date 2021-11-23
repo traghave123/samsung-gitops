@@ -6,7 +6,7 @@ metadata:
 #    argocd.argoproj.io/sync-wave: "30"
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
-  name: mcp-wait-cu-ldc6-server-profile-cu-dell-r640-00-settings
+  name: mcp-wait-du-fec6-server-profile-du-supermicro00-settings
   namespace: argocd
 spec:
   template:
@@ -33,7 +33,7 @@ spec:
           - name: SLEEP
             value: "5"
           - name: MCP 
-            value: ran-cu-ldc6-server-profile-cu-dell-r640-00
+            value: ran-du-fec6-server-profile-du-supermicro00
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: cli-job-sa

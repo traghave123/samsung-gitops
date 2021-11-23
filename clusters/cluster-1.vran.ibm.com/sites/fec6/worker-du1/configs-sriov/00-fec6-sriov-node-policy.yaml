@@ -5,68 +5,23 @@
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetworkNodePolicy
 metadata:
-  name: fec6-sriov-vfio-smci00-server-profile-du-supermicro00
+  name: cu-sriov-nnp-vfs-ens1f0
   namespace: openshift-sriov-network-operator
 spec:
-  resourceName: "vran_vfio_fh"
-  nodeSelector:
-    ran.openshift.io/sriov: ""
-    ran.openshift.io/fec6-sriov-vfio_fh-server-profile-du-supermicro00: ""
-  deviceType: vfio-pci
-  priority: 10
-  #mtu: 1500
-  numVfs: 64
-  nicSelector:
-    vendor: "8086"
-    deviceID: "158b"
-    pfNames:
-          - enp101s0f0#0-7
-    
----
-###############################################################################
-# specific resourceName for it (eg. sriov-netdevice-smci00)
-apiVersion: sriovnetwork.openshift.io/v1
-kind: SriovNetworkNodePolicy
-metadata:
-  name: fec6-sriov-vfio-ar-smci00-server-profile-du-supermicro00
-  namespace: openshift-sriov-network-operator
-spec:
-  resourceName: "vran_vfio_ar"
-  nodeSelector:
-    ran.openshift.io/sriov: ""
-    ran.openshift.io/fec6-sriov-vfio_ar-server-profile-du-supermicro00: ""
-  deviceType: vfio-pci
-  priority: 10
-  #mtu: 1500
-  numVfs: 64
-  nicSelector:
-    vendor: "8086"
-    deviceID: "158b"
-    pfNames:
-          - enp101s0f1#0-7
-    
----
-###############################################################################
-# specific resourceName for it (eg. sriov-netdevice-smci00)
-apiVersion: sriovnetwork.openshift.io/v1
-kind: SriovNetworkNodePolicy
-metadata:
-  name: fec6-sriov-netdevice-smci00-server-profile-du-supermicro00
-  namespace: openshift-sriov-network-operator
-spec:
-  resourceName: "vran_netdevice_mgmt_mh"
-  nodeSelector:
-    ran.openshift.io/sriov: ""
-    ran.openshift.io/fec6-sriov-netdevice_mgmt_mh-server-profile-du-supermicro00: ""
   deviceType: netdevice
-  priority: 10
-  #mtu: 1500
-  numVfs: 64
+  isRdma: false
+  linkType: eth
+  mtu: 1500
   nicSelector:
+    pfNames: 
+    - ens1f0#0-3
+    deviceID: 158b
     vendor: "8086"
-    deviceID: "158b"
-    pfNames:
-          - enp101s0f1#8-15
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 8
+  priority: 10
+  resourceName: cu_sriov_vfs_ens1f0
     
 ---
 ###############################################################################
@@ -74,20 +29,22 @@ spec:
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetworkNodePolicy
 metadata:
-  name: fec6-sriov-netdevice-fh-smci00-server-profile-du-supermicro00
+  name: cu-sriov-nnp-vfs-ens1f0-vfio
   namespace: openshift-sriov-network-operator
 spec:
-  resourceName: "vran_netdevice_mp"
-  nodeSelector:
-    ran.openshift.io/sriov: ""
-    ran.openshift.io/fec6-sriov-netdevice_mp-server-profile-du-supermicro00: ""
-  deviceType: netdevice
-  priority: 10
-  #mtu: 1500
-  numVfs: 64
+  deviceType: vfio-pci
+  isRdma: false
+  linkType: eth
+  mtu: 1500
   nicSelector:
+    pfNames: 
+    - ens1f0#4-7
+    deviceID: 158b
     vendor: "8086"
-    deviceID: "158b"
-    pfNames:
-          - enp101s0f0#8-15
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 8
+  priority: 10
+  resourceName: f1u
     
+---

@@ -4,11 +4,12 @@ kind: Kustomization
 
 commonLabels:
   # Each SITE_ID is a different zone
-  topology.kubernetes.io/zone: ran-cu-ldc6-server-profile-cu-dell-r640-00
+  topology.kubernetes.io/zone: ran-du-fec6-server-profile-du-supermicro00
 
 resources:
   # SRIOV Configs
-  - 00-hook-mcp-wait-job-ldc6.yaml
-  - 00-ldc6-sriov-namespace.yaml
-  - 00-ldc6-sriov-node-policy.yaml
-  - 01-ldc6-sriov-networks.yaml
+  - 00-hook-mcp-wait-job-fec6.yaml
+  - 00-fec6-sriov-namespace.yaml
+  - 00-fec6-sriov-node-policy.yaml
+  - 01-fec6-sriov-networks.yaml
+  - 02-fec6-local-storage-server-profile-du-supermicro00.yaml
