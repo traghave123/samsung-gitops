@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: sno-5
+    
+#---
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  annotations:
+##    argocd.argoproj.io/sync-wave: "30"
+#  name: nodes-label-job-sno-5
+#  namespace: argocd
+#spec:
+#  template:
+#    spec:
+#      containers:
+#        - image: ran-21-kvm.comm.ibm.gsc:5000/ocp4/openshift4:4.6.16-cli
+#          command:
+#            - /bin/bash
+#            - -c
+#            - |
+#              export HOME=/tmp/node
+#              echo ""
+#              echo -n "Add node labels"
+#              until oc wait --selector=feature.node.kubernetes.io/network-sriov.capable=true,kubernetes.io/hostname=sno-5 --for=condition=ready nodes
+#              do
+#                echo -n "...still waiting for applying labels"
+#                oc label node sno-5 feature.node.kubernetes.io/network-sriov.capable=true
+#                sleep $SLEEP
+#              done
+#              echo "DONE"
+#          imagePullPolicy: Always
+#          name: nodes-label-job
+#      dnsPolicy: ClusterFirst
+#      restartPolicy: OnFailure
+#      serviceAccount: cli-job-sa
+#      serviceAccountName: cli-job-sa
+#      terminationGracePeriodSeconds: 30

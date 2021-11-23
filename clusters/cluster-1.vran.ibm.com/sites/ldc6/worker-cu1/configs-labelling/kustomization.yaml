@@ -13,6 +13,7 @@ commonAnnotations:
 
 
 resources:
+  - 00-node-labels.yaml
   - 00-wait-job-sa-role.yaml
   - 01-mcp-wait-job-sa-rolebinding.yaml
   
