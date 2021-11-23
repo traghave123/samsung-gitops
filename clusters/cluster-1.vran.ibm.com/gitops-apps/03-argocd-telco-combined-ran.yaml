@@ -3,17 +3,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: combined-ran
-  namespace: cluster-1-gitops
+  namespace: sno-5
 spec:
   # The argocd project the application belongs to
   project: default
   destination:
-    name: 'cluster-1.vran.ibm.com'
-    server: 'https://api.cluster-1.vran.ibm.com:6443'
-  # Source of the application manifests
+    server: 'https://api.sno-5.vran.ibm.com:6443'
   source:
-    repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
-    targetRevision: develop
+    repoURL: 'https://github.com/traghave123/samsung-gitops.git'
+    targetRevision: master
     path: clusters/cluster-1.vran.ibm.com
     directory:
       recurse: false
