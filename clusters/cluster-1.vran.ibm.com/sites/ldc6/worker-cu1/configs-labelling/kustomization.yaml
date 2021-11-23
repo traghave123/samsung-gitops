@@ -20,5 +20,5 @@ patchesJson6902:
 - target:
     version: v1
     kind: Node
-    name: sno-5
+    name: r13dell6
   path: patch_node.yaml  
