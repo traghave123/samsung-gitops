@@ -10,7 +10,7 @@ spec:
         repoURL: 'https://github.com/traghave123/samsung-gitops.git'
         revision: HEAD
         files:
-        - path: "clusters/cluster-1.vran.ibm.com/sites/*/*/configs-*/config.json"
+        - path: "clusters/cluster-1.vran.ibm.com/sites/*/worker-cu1/configs-*/config.json"
   template:
     metadata:
       name: '{{application-name}}'
