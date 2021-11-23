@@ -33,7 +33,7 @@ spec:
           - name: SLEEP
             value: "5"
           - name: MCP 
-            value: ran-du-fec6-server-profile-du-supermicro00
+            value: master
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: cli-job-sa
