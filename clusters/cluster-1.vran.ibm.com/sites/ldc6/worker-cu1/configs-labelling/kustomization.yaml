@@ -16,9 +16,9 @@ resources:
   - 00-wait-job-sa-role.yaml
   - 01-mcp-wait-job-sa-rolebinding.yaml
   
-patchesJson6902:
-- target:
+patches:
+- path: node_patch.json
+  target:
     version: v1
     kind: Node
-    name: r13dell6
-  path: patch_node.yaml  
+    name: sno-5
