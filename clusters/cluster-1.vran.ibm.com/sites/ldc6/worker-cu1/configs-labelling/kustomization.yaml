@@ -13,6 +13,12 @@ commonAnnotations:
 
 
 resources:
-  - 00-sno-5-labels-job.yaml
   - 00-wait-job-sa-role.yaml
   - 01-mcp-wait-job-sa-rolebinding.yaml
+  
+patchesJson6902:
+- target:
+    version: v1
+    kind: Node
+    name: sno-5
+  path: patch_node.yaml  
