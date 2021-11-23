@@ -25,5 +25,9 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
+  labels:
+    local.storage.openshift.io/owner-name: localstorage
+    local.storage.openshift.io/owner-namespace: openshift-local-storage
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
+    
