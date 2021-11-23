@@ -3,23 +3,23 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
  name: node-configs
- namespace: cluster-1-gitops
+ namespace: sno-5
 spec:
   generators:
     - git:
-        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
+        repoURL: 'https://github.com/traghave123/samsung-gitops.git'
         revision: HEAD
         files:
         - path: "clusters/cluster-1.vran.ibm.com/sites/*/*/configs-*/config.json"
   template:
     metadata:
       name: '{{application-name}}'
-      namespace: cluster-1.vran.ibm.com
+      namespace: sno-5
     spec:
       project: default
       source:
-        repoURL: 'https://github.ibm.com/ocp48automation/telco-gitops.git'
-        targetRevision: develop
+        repoURL: 'https://github.com/traghave123/samsung-gitops.git'
+        targetRevision: main
         path: '{{path}}'
       destination:
         server: '{{cluster-address}}'
