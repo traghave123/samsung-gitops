@@ -4,7 +4,7 @@ kind: Kustomization
 
 commonLabels:
   # Each SITE_ID is a different zone
-  topology.kubernetes.io/zone: ran-du-fec6-server-profile-du-supermicro00
+  topology.kubernetes.io/zone: ran-cu-ldc6-server-profile-cu-supermicro00
 
 commonAnnotations:  
 #  argocd.argoproj.io/sync-wave: "10"
@@ -13,7 +13,6 @@ commonAnnotations:
 
 
 resources:
-  - 00-vrandemo-du-1-labels-job.yaml
-
+  - 00-sno-5-labels-job.yaml
   - 00-wait-job-sa-role.yaml
   - 01-mcp-wait-job-sa-rolebinding.yaml
