@@ -12,7 +12,7 @@ spec:
           - key: ran.openshift.io/ldc6-local-storage-server-profile-cu-dell-r740-00
             operator: Exists
   storageClassDevices:
-    - storageClassName: ldc6-local-storage-server-profile-cu-dell-r740-00
+    - storageClassName: localstorage
       volumeMode: Filesystem
       fsType: xfs 
       devicePaths: 
