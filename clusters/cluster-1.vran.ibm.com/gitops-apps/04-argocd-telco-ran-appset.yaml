@@ -19,7 +19,7 @@ spec:
       project: default
       source:
         repoURL: 'https://github.com/traghave123/samsung-gitops.git'
-        targetRevision: main
+        targetRevision: master
         path: '{{path}}'
       destination:
         server: '{{cluster-address}}'
