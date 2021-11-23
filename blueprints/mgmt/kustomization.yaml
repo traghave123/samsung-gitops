@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  telco-gitops/mgmt: telco-gitops
+
+bases:
+  #####################################################
+  # Operators for MGMT Clusters
+  #####################################################
+  # Configure chrony
+  # - ../../base/configs/chrony
+  # Identity Provider (htpasswd)
+  # - ../../base/configs/idp-htpasswd
+  # local storage operator
+  - ../../base/operators/local-storage-operator
+  # LSO auto-discovery label
+  - ../../base/configs/lso
+  # Common Telco Optimizations
+  - ../../base/configs/telco-optimized
+  # OpenShift GitOps
+  - ../../base/operators/openshift-gitops
+  # OpenShift Pipelines
+  - ../../base/operators/openshift-pipelines
+  # OpenShift Serverless
+  - ../../base/operators/openshift-serverless
+  # # Assisted Installer (now Infrastructre Operator)
+  - ../../base/operators/assisted-installer
+  # Red Hat Advanced Cluster Manager for Kubernetes
+  # - ../../base/operators/advanced-cluster-management
+  # OpenShift Container storage
+  # - ../../base/operators/openshift-container-storage
+  # Quay Enterprise
+  # - ../../base/operators/quay-enterprise-operator
+  # OpenShift Logging
+  # - ../../base/operators/openshift-logging
