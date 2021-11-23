@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: telco-combined-ran
+  name: cluster-1.vran.ibm.com-combined-ran
   namespace: cluster-1-gitops
 spec:
   # The argocd project the application belongs to
