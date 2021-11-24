@@ -22,4 +22,4 @@ patches:
   target:
     version: v1
     kind: Node
-    name: sno-5
+    name: r13dell6

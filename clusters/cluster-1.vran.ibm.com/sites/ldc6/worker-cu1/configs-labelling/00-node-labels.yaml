@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Node
 metadata:
-  name: sno-5
+  name: r13dell6
   labels: {}
     
 #---
