@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: default
-  namespace: cluster-1-gitops
+  namespace: sno-5
 spec:
   clusterResourceWhitelist:
   - group: '*'
