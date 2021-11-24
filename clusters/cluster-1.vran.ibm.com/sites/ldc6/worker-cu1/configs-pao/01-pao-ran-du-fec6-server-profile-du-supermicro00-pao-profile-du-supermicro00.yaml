@@ -2,7 +2,7 @@
 apiVersion: performance.openshift.io/v1
 kind: PerformanceProfile
 metadata:
-  name: ran-cu-ldc6-server-profile-cu-dell-r740-00-pao-profile-cu-dell-r740-00
+  name: hugepage32x1g
 spec:
   cpu:
     isolated: "4-38,5-39"
