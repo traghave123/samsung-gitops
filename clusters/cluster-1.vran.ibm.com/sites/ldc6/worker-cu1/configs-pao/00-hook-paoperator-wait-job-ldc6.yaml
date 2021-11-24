@@ -21,7 +21,7 @@ spec:
               echo ""
               until [ $STATUS -eq 0 ]
               do
-                  oc rollout status deploy performance-operator -n openshift-performance-addon-operator --timeout 300s
+                  oc rollout status deploy performance-operator -n openshift-operators --timeout 300s
                   STATUS=$?
                   echo -n "Waiting for the pao operator to be installed."
                   sleep $SLEEP
