@@ -1,30 +1,3 @@
- 
----
-###############################################################################
-# specific resourceName for it (eg. sriov-netdevice-smci00)
-apiVersion: sriovnetwork.openshift.io/v1
-kind: SriovNetworkNodePolicy
-metadata:
-  name: cu-sriov-nnp-vfs-ens2f0-vfio
-  namespace: openshift-sriov-network-operator
-spec:
-    deviceType: vfio-pci
-    isRdma: false
-    linkType: eth
-    mtu: 1500
-    nicSelector:
-      deviceID: "1015"
-      pfNames:
-      - ens2f1#8-15
-      rootDevices:
-      - 0000:5e:00.1
-      vendor: 15b3
-    nodeSelector:
-      feature.node.kubernetes.io/network-sriov.capable: "true"
-    numVfs: 16
-    priority: 10
-    resourceName: f1u
-    
 ---
 ###############################################################################
 # specific resourceName for it (eg. sriov-netdevice-smci00)
@@ -50,5 +23,29 @@ spec:
     numVfs: 16
     priority: 10
     resourceName: cu_sriov_vfs_ens1f0
-    
+---
+###############################################################################
+# specific resourceName for it (eg. sriov-netdevice-smci00)
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: cu-sriov-nnp-vfs-ens2f0-vfio
+  namespace: openshift-sriov-network-operator
+spec:
+    deviceType: vfio-pci
+    isRdma: false
+    linkType: eth
+    mtu: 1500
+    nicSelector:
+      deviceID: "1015"
+      pfNames:
+      - ens2f1#8-15
+      rootDevices:
+      - 0000:5e:00.1
+      vendor: 15b3
+    nodeSelector:
+      feature.node.kubernetes.io/network-sriov.capable: "true"
+    numVfs: 16
+    priority: 10
+    resourceName: f1u
 ---
