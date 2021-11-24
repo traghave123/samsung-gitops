@@ -23,17 +23,17 @@ spec:
         path: '{{path}}'
       destination:
         server: '{{cluster-address}}'
-        syncPolicy:
-          automated:
-            prune: false
-            allowEmpty: true  
-            selfHeal: true 
-          retry:
-            backoff:
-              duration: 5s
-              factor: 2
-              maxDuration: 3m
-            limit: -1
-          syncOptions:
-          - Validate=false
-          - CreateNamespace=true
+  syncPolicy:
+    automated:
+      prune: false
+      allowEmpty: true  
+      selfHeal: true 
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+      limit: -1
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=true
