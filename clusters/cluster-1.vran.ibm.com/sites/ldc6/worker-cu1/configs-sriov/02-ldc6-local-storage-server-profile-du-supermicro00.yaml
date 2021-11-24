@@ -2,25 +2,28 @@
 apiVersion: local.storage.openshift.io/v1
 kind: LocalVolume
 metadata:
-  name: ldc6-local-storage-server-profile-cu-dell-r740-00
+  name: localstorage
   namespace: openshift-local-storage
 spec:
   managementState: Managed
   nodeSelector:
     nodeSelectorTerms:
       - matchExpressions:
-          - key: ran.openshift.io/ldc6-local-storage-server-profile-cu-dell-r740-00
-            operator: Exists
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - r13dell6
   storageClassDevices:
     - storageClassName: localstorage
       volumeMode: Filesystem
       fsType: xfs 
       devicePaths: 
-        - /dev/autopart/lv_1
-        - /dev/autopart/lv_2
-        - /dev/autopart/lv_3
-        - /dev/autopart/lv_4
-        - /dev/autopart/lv_5
+        - /dev/testvg/lv_data1
+        - /dev/testvg/lv_data2
+        - /dev/testvg/lv_data3
+        - /dev/testvg/lv_data4
+        - /dev/testvg/lv_data5
+        - /dev/testvg/lv_data6
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass

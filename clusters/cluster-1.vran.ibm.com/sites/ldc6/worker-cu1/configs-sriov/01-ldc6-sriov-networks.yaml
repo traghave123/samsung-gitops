@@ -1,34 +1,27 @@
- 
----
-###############################################################################
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetwork
 metadata:
-  name: ldc6-vran-netdevice-sriov-network0
+  name: cu-netdevice-sriov-network0
   namespace: openshift-sriov-network-operator
 spec:
   networkNamespace: cnf
   ipam: "{}"
-  vlan: 2006
-  resourceName: cu_sriov_vfs
+  vlan: 2024
+  resourceName: cu_sriov_vfs_ens1f0
   capabilities: '{ "mac": true, "ips": true }'
   spoofChk: 'on'
   trust: 'on'
-
 ---
-###############################################################################
 apiVersion: sriovnetwork.openshift.io/v1
 kind: SriovNetwork
 metadata:
-  name: ldc6-vran-vfio-sriov-network0
+  name: cu-vfio-sriov-network0
   namespace: openshift-sriov-network-operator
 spec:
   networkNamespace: cnf
   ipam: "{}"
-  vlan: 2012
+  vlan: 2024
   resourceName: f1u
   capabilities: '{ "mac": true, "ips": true }'
   spoofChk: 'on'
   trust: 'on'
-  
----
