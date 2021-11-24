@@ -8,7 +8,7 @@ metadata:
   name: cu-sriov-nnp-vfs-ens2f0-vfio
   namespace: openshift-sriov-network-operator
 spec:
-    deviceType: netdevice
+    deviceType: vfio-pci
     isRdma: false
     linkType: eth
     mtu: 1500
@@ -34,7 +34,7 @@ metadata:
   name: cu-sriov-nnp-vfs-ens2f0
   namespace: openshift-sriov-network-operator
 spec:
-    deviceType: vfio-pci
+    deviceType: netdevice
     isRdma: false
     linkType: eth
     mtu: 1500
